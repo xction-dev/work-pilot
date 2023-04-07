@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import Play from "./pages/PlayLayout/Play/Play";
+import PlayLayout from "./pages/PlayLayout/PlayLayout";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +20,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/play",
-    element: <div>play</div>,
+    element: <PlayLayout />,
     errorElement: <div>errorLayout</div>,
-    children: [{ path: ":filmId", element: <div>film</div> }],
+    children: [{ path: ":filmId", element: <Play /> }],
   },
 ]);
 
