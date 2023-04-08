@@ -1,11 +1,26 @@
-import { useParams } from "react-router-dom";
+import styles from "./Play.module.scss";
 import VideoPlayer from "../../../components/Play/VideoPlayer/VideoPlayer";
+import { allSampleVideoSource } from "../../../data/sample/sampleVideo";
+import { useState } from "react";
 
 export default function Play() {
-  const { filmId } = useParams();
+  const [playState, setPlayState] = useState(0);
   return (
-    <div>
-      <VideoPlayer />
+    <div className={styles.Play}>
+      <div className={styles.playerWrapper}>
+        {playState <= 1 && (
+          <VideoPlayer
+            video={allSampleVideoSource[0]}
+            status={playState === 1 ? "playing" : "loaded"}
+          />
+        )}
+        {playState === 2 && (
+          <VideoPlayer video={allSampleVideoSource[1]} status="playing" />
+        )}
+      </div>
+      <button onClick={() => setPlayState(playState + 1)}>
+        {playState === 0 ? "재생" : "다음"}
+      </button>
     </div>
   );
 }
