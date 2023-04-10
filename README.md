@@ -5,7 +5,7 @@
 
 | ver | deployment URL | Start Date | PO |
 |---|---|---|---|
-| pre-release | [미정](./README.md) | YYYY-MM-DD | |
+| pre-release | [미정](./README.md) | YYYY-MM-DD | [`@designDefined`](https://github.com/designDefined) |
 
 
 ## 목차
@@ -16,13 +16,45 @@
 - [참고](#참고)
 
 ## 시작하기
+### 설치와 실행
+- install dependencies
+```shell
+yarn 
+```
+- start dev server
+```shell
+yarn dev
+```
+### 라우팅과 디렉토리 구조
+라우팅에는 react-router를 사용했습니다. 라우팅에 사용되는 레이아웃과 페이지 컴포넌트는 `src/pages`에서 확인할 수 있습ㄴ디ㅏ.
+
+여러 페이지에서 공유하는 요소가 있을 경우 레이아웃으로 처리합니다.
+- Platform UI의 경우 어느 페이지에서든 헤더가 공유됩니다 -> `MainLayout`
+- Film UI는 페이지가 크게 나눠지지 않지만, 비슷한 구조를 유지하기 위해 `FilmLayout`으로 처리했습니다
+- 에러 페이지의 경우 아직 디자인되지 않았지만 따로 분류하기 위해 `ErrorLayout`으로 처리합니다.
+
+각 레이아웃 디렉토리 내에는 페이지 컴포넌트들이 있습니다. 페이지는 `main.tsx`의 `router` 객체에서 사용되는 컴포넌트를 의미합니다
+- router 객체에서는 레이아웃 컴포넌트나 페이지 컴포넌트만을 사용합니다.
+- router 객체의 최하위 트리에는 반드시 페이지 컴포넌트가 사용됩니다.
+- 아직 페이지가 작업되지 않았을 경우, 지금처럼 `<div>레이아웃이나 페이지 명</div>`의 엘리먼트를 넣어놓습니다.
+
+페이지 내부에는 다양한 컴포넌트들이 사용될 수 있습니다. 이러한 컴포넌트들은 `src/components`에서 확인할 수 있습니다. 
+- 컴포넌트는 사용되는 페이지/레이아웃 컴포넌트와 동일한 이름의 디렉토리 내에 배치됩니다.
+- 모든 페이지에서 사용될 수 있는 컴포넌트나, 매우 일반적인 컴포넌트의 경우에는 `src/components/common` 디렉토리 내에 배치합니다.
 
 ## 일정 및 진행 상황
+1. ~~기본 세팅~~
+2. 배포 파이프라인 구축 (CI, CD)
+3. Film UI 테스트
+4. Platform UI 구현
 
 ## 작품 설명
 
 ## 참여자 및 역할
 
 ## 레포지토리 구조
-
+- src
+  - `main.tsx`: 클라이언트 최상단 파일
+  - `pages`: 각 레이아웃 별 페이지 파일들
+  - `components`: 컴포넌트들
 ## 참고
