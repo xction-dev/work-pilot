@@ -18,9 +18,13 @@ export default function Play() {
           <VideoPlayer video={allSampleVideoSource[1]} status="playing" />
         )}
       </div>
-      <button onClick={() => setPlayState(playState + 1)}>
-        {playState === 0 ? "재생" : "다음"}
-      </button>
+      {playState < 2 ? (
+        <button onClick={() => setPlayState(playState + 1)}>
+          {playState === 0 ? "재생" : "다음"}
+        </button>
+      ) : (
+        <button onClick={() => setPlayState(0)}> 다시 </button>
+      )}
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function VideoPlayer({ video: { id, source }, status }: Props) {
   }, [videoRef, status]);
   return (
     <div className={styles.VideoPlayer}>
-      <video className={styles.video} ref={videoRef} controls>
+      <video className={styles.video} ref={videoRef}>
         <source src={source} type="video/mp4" />
       </video>
     </div>
