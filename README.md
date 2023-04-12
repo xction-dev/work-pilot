@@ -1,7 +1,7 @@
 # 작품 제목
 > 여기에 **작품**를 간단하게 소개해주세요.
 > 
-> 배포 주소:
+> 배포 주소: https://d390vdxn6yepac.cloudfront.net
 
 | ver | deployment URL | Start Date | PO |
 |---|---|---|---|
