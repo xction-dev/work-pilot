@@ -1,0 +1,10 @@
+.MainLayout {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background:  conic-gradient(from 193.92deg at 111.41% 53.96%, #FFDF6C 0deg, #FF7B1B 55.44deg, #B74E2D 90.59deg, #582718 121deg, #000000 146.01deg, #000000 360deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

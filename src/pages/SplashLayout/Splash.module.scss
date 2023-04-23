@@ -1,0 +1,91 @@
+.Splash {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background:  conic-gradient(from 193.92deg at 111.41% 53.96%, #FFDF6C 0deg, #FF7B1B 55.44deg, #B74E2D 90.59deg, #582718 121deg, #000000 146.01deg, #000000 360deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .PortraitWrapper{
+      justify-content: 'center';
+      align-items: center;
+      
+    }
+    .PortraitDescriptionWrapper{
+      justify-content: center;
+      margin-top: 71px;
+    }
+    .PortraitDescriptionTextWrapper{
+      margin-bottom: 71px;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+
+    }
+    .PortraitDescriptionText{
+      text-align: center;
+      font-family: 'NanumSquare Neo OTF';
+      font-style: normal;
+      
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 30px;
+      letter-spacing: -0.02em;
+      margin-bottom: 5px;
+
+      color: #FFFFFF;
+    }
+    .PortraitImageWrapper{
+      display: grid;
+      place-items: center;
+      align-items: center;
+      justify-items: center;
+      width: 100%;
+    }
+    .PortraitImage{
+      width: 50%;
+    }
+    .OrientationWrapper{
+      flex-direction: row;
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+    }
+    .OrientationDescriptionWrapper{
+      flex-direction: row;
+      justify-content: center;
+
+    }
+    .OrientationArrowWrapper{
+      flex-direction: column;
+      display: flex;
+      margin-bottom: 30px;
+    }
+    .OrientationArrow{
+      display: flex;
+      justify-content: 'center';
+      align-items: center;
+      align-self: center;
+      width: 50%;
+
+    }
+    .OrientationText{
+      font-family: 'NanumSquare Neo OTF';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 30px;
+      /* or 94% */
+
+      display: flex;
+      align-items: center;
+      text-align: center;
+      letter-spacing: -0.02em;
+
+      color: #FFFFFF;
+
+    }
+
+  }
+  
