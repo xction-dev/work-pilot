@@ -1,0 +1,53 @@
+.Interactive {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #262626;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .playerWrapper {
+    position: relative;
+    width: 800px;
+    height: 450px;
+  }
+}
+
+.Player {
+  position: absolute;
+  width: 100%;
+  height: 450px;
+  &.on {
+    opacity: 1;
+  }
+  &.off {
+    opacity: 0;
+  }
+  &.sideA {
+    background-color: blue;
+  }
+  &.sideB {
+    background-color: red;
+  }
+
+  .video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    &.active {
+      opacity: 1;
+    }
+    &.inactive {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  button {
+    position: absolute;
+    top: 800px;
+  }
+}
