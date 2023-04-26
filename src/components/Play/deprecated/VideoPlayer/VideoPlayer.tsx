@@ -1,5 +1,5 @@
 import styles from "./VideoPlayer.module.scss";
-import { VideoData } from "../../../types/video";
+import { VideoData } from "../../../../types/video";
 import { useLayoutEffect, useRef } from "react";
 
 type Props = VideoData;

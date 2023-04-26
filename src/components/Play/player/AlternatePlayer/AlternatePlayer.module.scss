@@ -1,0 +1,13 @@
+.AlternatePlayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  &.playing {
+    opacity: 1;
+  }
+  &.waiting {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Play from "./pages/PlayLayout/Play/Play";
 import PlayLayout from "./pages/PlayLayout/PlayLayout";
 import Interactive from "./pages/PlayLayout/Interactive/Interactive";
-
+import Frame from "./pages/PlayLayout/Frame/Frame";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
     children: [
       { path: "normal", element: <Play /> },
       { path: "interactive", element: <Interactive /> },
+      { path: "frame", element: <Frame /> },
     ],
   },
 ]);
