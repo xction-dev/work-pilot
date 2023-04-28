@@ -17,7 +17,7 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
   const prevFrame = useRef(-1);
 
   const rVFCTest = (a: DOMHighResTimeStamp, b: VideoFrameCallbackMetadata) => {
-    const frame = Math.floor(b.mediaTime * dropFrameRate);
+    const frame = Math.floor(b.mediaTime * normalFrameRate);
     console.log(
       prevFrame.current + 1 === frame
         ? `same: ${frame}`

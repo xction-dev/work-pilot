@@ -1,6 +1,7 @@
 import styles from "./XctionController.module.scss";
 import { useXctionPlayer } from "../../../../libs/useXctionPlayer/useXctionPlayer";
 import { useState } from "react";
+import { frameTestVideos } from "../../../../pages/PlayLayout/Frame/videoData";
 
 export default function XctionController() {
   const currentVideoRef = useXctionPlayer((state) => state.currentVideoRef);
@@ -8,6 +9,9 @@ export default function XctionController() {
   const { proceedToNextSource, getCurrentVideoSource, setPlayStatus } =
     useXctionPlayer((state) => state.actions);
   const [displayController, setDisplayController] = useState(false);
+
+  //임시 (다음 커밋때 삭제)
+  const currentVideoId = useXctionPlayer((state) => state.currentVideoId);
 
   if (!currentVideoRef) {
     return <div>no video</div>;
@@ -47,8 +51,10 @@ export default function XctionController() {
       </button>
       <button
         onClick={() => {
-          const currentSource = getCurrentVideoSource();
-          if (currentSource) proceedToNextSource(currentSource);
+          //임시 (다음 커밋때 삭제)
+          if (currentVideoId === "A") proceedToNextSource(frameTestVideos[1]);
+          if (currentVideoId === "B") proceedToNextSource(frameTestVideos[2]);
+          if (currentVideoId === "D") proceedToNextSource(null);
         }}
       >
         다음
