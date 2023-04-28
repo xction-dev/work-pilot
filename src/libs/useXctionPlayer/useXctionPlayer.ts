@@ -30,6 +30,8 @@ type XctionPlayerStore = {
     ) => void;
     proceedToNextSource: (currentSource: XctionPlayerVideoSource) => void;
     loadVideoRef: (videoRef: HTMLVideoElement) => void;
+    getCurrentVideoSource: () => XctionPlayerVideoSource | null;
+    setPlayStatus: (status: XctionPlayerStore["playStatus"]) => void;
   };
 };
 
@@ -68,7 +70,11 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
       });
     },
     proceedToNextSource: (currentSource) => {
-      const { allSources, isPrimaryPlaying, finishCallBack } = get();
+      const { allSources, isPrimaryPlaying, finishCallBack, currentVideoRef } =
+        get();
+      //pause previous video
+      if (currentVideoRef) currentVideoRef.pause();
+
       if (currentSource.childVideoIds) {
         const nextState: Partial<XctionPlayerStore> = {};
         const nextSources = filterNextSourcesByIds(
@@ -86,6 +92,7 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
         } else {
           //if next source doesn't exist, report error
         }
+        console.log("abc");
         set(nextState);
       } else {
         //if next id is null, call finish callback
@@ -93,5 +100,12 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
       }
     },
     loadVideoRef: (videoRef) => set({ currentVideoRef: videoRef }),
+    getCurrentVideoSource: () => {
+      const { allSources, currentVideoId } = get();
+      return (
+        allSources.find((source) => source.videoId === currentVideoId) ?? null
+      );
+    },
+    setPlayStatus: (status) => set({ playStatus: status }),
   },
 }));

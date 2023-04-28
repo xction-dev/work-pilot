@@ -11,10 +11,8 @@ export default function AlternatePlayer({ isPrimary }: Props) {
   const sources = useXctionPlayer((state) =>
     isPrimary ? state.primarySources : state.secondarySources,
   );
-  const currentVideoId =
-    isPrimary === isPrimaryPlaying
-      ? useXctionPlayer((state) => state.currentVideoId)
-      : null; //혹시 primary source와 secondary source에 같은 id의 영상이 있더라도 활성화되지 않도록 제한
+  const storedId = useXctionPlayer((state) => state.currentVideoId);
+  const currentVideoId = isPrimary === isPrimaryPlaying ? storedId : null; //혹시 primary source와 secondary source에 같은 id의 영상이 있더라도 활성화되지 않도록 제한
 
   return (
     <div

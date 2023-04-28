@@ -13,6 +13,7 @@ type Props = {
 export default function PlainVideo({ isActive, sourceURL }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playStatus = useXctionPlayer((state) => state.playStatus);
+  const { loadVideoRef } = useXctionPlayer((state) => state.actions);
   const prevFrame = useRef(-1);
 
   const rVFCTest = (a: DOMHighResTimeStamp, b: VideoFrameCallbackMetadata) => {
@@ -43,6 +44,8 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
             console.log(e);
           });
       }
+      //set ref logic
+      if (isActive) loadVideoRef(videoRef.current);
       //useFrame logic
       if (isActive) {
         videoRef.current.requestVideoFrameCallback(rVFCTest);
