@@ -6,8 +6,9 @@ import { frameTestVideos } from "../../../../pages/PlayLayout/Frame/videoData";
 export default function XctionController() {
   const currentVideoRef = useXctionPlayer((state) => state.currentVideoRef);
   const playStatus = useXctionPlayer((state) => state.playStatus);
-  const { proceedToNextSource, getCurrentVideoSource, setPlayStatus } =
-    useXctionPlayer((state) => state.actions);
+  const { proceedToNextSource, setPlayStatus } = useXctionPlayer(
+    (state) => state.actions,
+  );
   const [displayController, setDisplayController] = useState(false);
 
   //임시 (다음 커밋때 삭제)

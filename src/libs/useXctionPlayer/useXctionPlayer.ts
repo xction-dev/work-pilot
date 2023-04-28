@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { RefObject } from "react";
 
 /*** external types ***/
 export type XctionPlayerVideoSource = {
@@ -32,7 +31,6 @@ type XctionPlayerStore = {
       nextVideoSource: XctionPlayerVideoSource | null,
     ) => void;
     loadVideoRef: (videoRef: HTMLVideoElement) => void;
-    getCurrentVideoSource: () => XctionPlayerVideoSource | null;
     setPlayStatus: (status: XctionPlayerStore["playStatus"]) => void;
   };
 };
@@ -78,7 +76,6 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
         finishCallBack,
         currentVideoId,
         currentVideoRef,
-        actions: { getCurrentVideoSource },
       } = get();
       //pause previous video
       if (currentVideoRef) currentVideoRef.pause();
@@ -124,13 +121,6 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
       }
     },
     loadVideoRef: (videoRef) => set({ currentVideoRef: videoRef }),
-    getCurrentVideoSource: () => {
-      const { allSources, currentVideoId } = get();
-
-      return (
-        allSources.find((source) => source.videoId === currentVideoId) ?? null
-      );
-    },
     setPlayStatus: (status) => set({ playStatus: status }),
   },
 }));
