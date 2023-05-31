@@ -9,8 +9,6 @@ export default function RVFC() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const rVFCTest2 = (a: DOMHighResTimeStamp, b: VideoFrameCallbackMetadata) => {
-    /* console.log(tick.current); */
-
     tick.current = tick.current + 1;
 
     if (videoRef.current) {
@@ -34,7 +32,15 @@ export default function RVFC() {
           }
         }}
       />
-      <button>현재 프레임을 알려줘!</button>
+      <button
+        onClick={() => {
+          if (videoRef.current) {
+            console.log(videoRef.current.currentTime);
+          }
+        }}
+      >
+        현재 프레임을 알려줘!
+      </button>
     </div>
   );
 }
