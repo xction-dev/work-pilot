@@ -23,7 +23,7 @@ export default function XctionPlayer({ allSources, callback }: Props) {
     <div className={styles.XctionPlayer}>
       <AlternatePlayer isPrimary={true} />
       <AlternatePlayer isPrimary={false} />
-      <XctionController />
+      {/*<XctionController />*/}
     </div>
   );
 }

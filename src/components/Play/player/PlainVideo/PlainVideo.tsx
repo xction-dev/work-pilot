@@ -14,21 +14,23 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playStatus = useXctionPlayer((state) => state.playStatus);
   const { loadVideoRef } = useXctionPlayer((state) => state.actions);
-  const prevFrame = useRef(-1);
+  const currentFrame = useRef(0);
+  const prevFrame = useRef(0);
 
-  const rVFCTest = (a: DOMHighResTimeStamp, b: VideoFrameCallbackMetadata) => {
-    const frame = Math.floor(b.mediaTime * normalFrameRate);
+  const rVFCTest2 = (a: DOMHighResTimeStamp, b: VideoFrameCallbackMetadata) => {
+    currentFrame.current += 1;
     console.log(
-      prevFrame.current + 1 === frame
-        ? `same: ${frame}`
-        : `something's wrong: ${frame}`,
+      currentFrame.current === prevFrame.current + 1
+        ? `good:${currentFrame.current}`
+        : `something's wrong:${currentFrame.current} ${prevFrame.current}`,
     );
-    prevFrame.current = frame;
+    prevFrame.current = currentFrame.current;
 
     if (videoRef.current) {
-      videoRef.current.requestVideoFrameCallback(rVFCTest);
+      videoRef.current.requestVideoFrameCallback(rVFCTest2);
     }
   };
+
   useEffect(() => {
     if (videoRef.current) {
       //autoplay logic
@@ -48,7 +50,7 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
       if (isActive) loadVideoRef(videoRef.current);
       //useFrame logic
       if (isActive) {
-        videoRef.current.requestVideoFrameCallback(rVFCTest);
+        videoRef.current.requestVideoFrameCallback(rVFCTest2);
       }
     }
   }, [videoRef, isActive]);
@@ -59,6 +61,7 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
       className={`${styles.PlainVideo} ${
         isActive ? styles.active : styles.inactive
       }`}
+      controls
     >
       <source src={sourceURL} type="video/mp4" />
       {/* 대체 소스가 있을 경우 추가*/}

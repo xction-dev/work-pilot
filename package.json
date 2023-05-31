@@ -12,6 +12,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
+    "rvfc-polyfill": "^1.0.6",
     "zustand": "^4.3.7"
   },
   "devDependencies": {
