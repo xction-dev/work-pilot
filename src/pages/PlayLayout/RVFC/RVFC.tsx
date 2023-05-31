@@ -35,7 +35,7 @@ export default function RVFC() {
       <button
         onClick={() => {
           if (videoRef.current) {
-            console.log(videoRef.current.currentTime);
+            console.log(Math.floor((videoRef.current.currentTime * 23.976).toPrecision(6)));
           }
         }}
       >
