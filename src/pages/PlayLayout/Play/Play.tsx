@@ -1,5 +1,5 @@
 import styles from "./Play.module.scss";
-import VideoPlayer from "../../../components/Play/VideoPlayer/VideoPlayer";
+import VideoPlayer from "../../../components/Play/deprecated/VideoPlayer/VideoPlayer";
 import { allSampleVideoSource } from "../../../data/sample/sampleVideo";
 import { useState } from "react";
 
