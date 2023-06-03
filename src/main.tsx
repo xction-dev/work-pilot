@@ -7,6 +7,7 @@ import PlayLayout from "./pages/PlayLayout/PlayLayout";
 import Interactive from "./pages/PlayLayout/Interactive/Interactive";
 import Frame from "./pages/PlayLayout/Frame/Frame";
 import RVFC from "./pages/PlayLayout/RVFC/RVFC";
+import DiagramTest from "./pages/MainLayout/DiagramTest";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,8 @@ const router = createBrowserRouter([
         element: <div>home</div>,
         index: true,
       },
+      {path: "diagramTest",
+      element:<DiagramTest/>}
     ],
   },
   {
