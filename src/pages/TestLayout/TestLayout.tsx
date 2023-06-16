@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
 
-export default function PlayLayout() {
+export default function TestLayout() {
   return <Outlet />;
 }
