@@ -1,5 +1,5 @@
 import styles from "./Frame.module.scss";
-import XctionPlayer from "../../../components/Play/player/XctionPlayer/XctionPlayer";
+import XctionPlayer from "../../../components/Play/deprecated/player/XctionPlayer/XctionPlayer";
 import { frameTestVideos } from "./videoData";
 
 export default function Frame() {

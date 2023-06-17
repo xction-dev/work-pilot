@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./index.scss";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import PlayTest from "./pages/TestLayout/Play/Play";
 import Interactive from "./pages/TestLayout/Interactive/Interactive";

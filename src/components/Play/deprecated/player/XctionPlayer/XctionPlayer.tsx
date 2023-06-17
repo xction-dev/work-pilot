@@ -3,18 +3,19 @@ import AlternatePlayer from "../AlternatePlayer/AlternatePlayer";
 import XctionController from "../../controller/XctionController/XctionController";
 import {
   useXctionPlayer,
-  XctionPlayerFinishCallback,
   XctionPlayerVideoSource,
-} from "../../../../libs/useXctionPlayer/useXctionPlayer";
+} from "../../../../../libs/XctionPlayer/useXctionPlayer";
 import { useEffect } from "react";
 
 type Props = {
   allSources: XctionPlayerVideoSource[];
-  callback: XctionPlayerFinishCallback;
+  callback: () => void;
 };
 
 export default function XctionPlayer({ allSources, callback }: Props) {
-  const { initiateXctionPlayer } = useXctionPlayer((state) => state.actions);
+  const { initiateXctionPlayer } = useXctionPlayer(
+    (state) => state.actions.data,
+  );
 
   useEffect(() => {
     initiateXctionPlayer(allSources, callback);

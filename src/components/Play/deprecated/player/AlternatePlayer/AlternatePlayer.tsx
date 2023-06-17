@@ -1,6 +1,6 @@
 import styles from "./AlternatePlayer.module.scss";
 import PlainVideo from "../PlainVideo/PlainVideo";
-import { useXctionPlayer } from "../../../../libs/useXctionPlayer/useXctionPlayer";
+import { useXctionPlayer } from "../../../../../libs/XctionPlayer/useXctionPlayer";
 import { useEffect } from "react";
 
 type Props = {

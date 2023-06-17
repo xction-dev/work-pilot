@@ -1,4 +1,4 @@
-import { XctionPlayerVideoSource } from "../../../libs/useXctionPlayer/useXctionPlayer";
+import { XctionPlayerVideoSource } from "../../../libs/XctionPlayer/useXctionPlayer";
 import { allSampleVideoSource } from "../../../data/sample/sampleVideo";
 
 export const frameTestVideos: XctionPlayerVideoSource[] = [

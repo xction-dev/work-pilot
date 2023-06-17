@@ -1,15 +1,23 @@
 import styles from "./Play.module.scss";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import XctionPlayer from "../../libs/XctionPlayer/components/XctionPlayer/XctionPlayer";
+import films from "../../data/v1";
+import PlayerHeader from "../../components/Play/PlayerHeader/PlayerHeader";
 
 export default function Play() {
-  const a = useParams();
-  useEffect(() => {
-    console.log(a.film_id);
-  }, [a]);
+  const params = useParams();
+  const filmData = useMemo(
+    () => (params.film_id ? films[params.film_id] : null),
+    [params],
+  );
+
   return (
     <main className={styles.Play}>
-      <div className={styles.playerWrapper}>플레이</div>
+      <div className={styles.playerWrapper}>
+        <PlayerHeader title={filmData ? filmData.title.kr : "no_title"} />
+        <XctionPlayer allSources={filmData?.videos} />
+      </div>
     </main>
   );
 }

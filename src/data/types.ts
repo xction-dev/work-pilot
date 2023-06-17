@@ -1,28 +1,29 @@
 type VideoId = string;
 
-type Selection = {
-  to: string;
-  onSelect: (to: VideoId) => void;
-};
-
 type Transition = {
-  normal: {
-    type: "normal";
+  proceed: {
+    type: "proceed";
     to: VideoId;
   };
   loop: {
     type: "loop";
-  };
-  select: {
-    type: "select";
-    selects: Selection[];
+    onLoop?: (to: VideoId) => void;
   };
 };
 
-type Video = {
+type Interaction = {
+  frame: {
+    type: "frame";
+    callback: (frame: number) => void;
+  };
+};
+
+export type Video = {
   id: VideoId;
   source: string;
   transition: Transition[keyof Transition];
+  interaction?: Interaction[keyof Interaction];
+  prepare: VideoId[];
 };
 
 export type Film = {

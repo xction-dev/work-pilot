@@ -1,7 +1,7 @@
 import styles from "./XctionController.module.scss";
-import { useXctionPlayer } from "../../../../libs/useXctionPlayer/useXctionPlayer";
+import { useXctionPlayer } from "../../../../../libs/XctionPlayer/useXctionPlayer";
 import { useState } from "react";
-import { frameTestVideos } from "../../../../pages/TestLayout/Frame/videoData";
+import { frameTestVideos } from "../../../../../pages/TestLayout/Frame/videoData";
 
 export default function XctionController() {
   const currentVideoRef = useXctionPlayer((state) => state.currentVideoRef);

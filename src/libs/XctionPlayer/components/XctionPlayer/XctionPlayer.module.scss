@@ -1,0 +1,11 @@
+.XctionPlayer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 160/67;
+
+  .empty {
+    width: 100%;
+    height: 100%;
+    background-color: #d3d3d3;
+  }
+}

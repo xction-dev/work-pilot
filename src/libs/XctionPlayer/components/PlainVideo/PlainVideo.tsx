@@ -1,6 +1,10 @@
 import styles from "./PlainVideo.module.scss";
 import { useEffect, useRef } from "react";
-import { useXctionPlayer } from "../../../../libs/useXctionPlayer/useXctionPlayer";
+import {
+  playWithId,
+  useXctionPlayer,
+} from "../../../../libs/XctionPlayer/useXctionPlayer";
+import { Video } from "../../../../data/types";
 
 const normalFrameRate = 24;
 const dropFrameRate = 23.976;
@@ -8,12 +12,14 @@ const dropFrameRate = 23.976;
 type Props = {
   isActive: boolean;
   sourceURL: string;
+  transition: Video["transition"];
 };
 
-export default function PlainVideo({ isActive, sourceURL }: Props) {
+export default function PlainVideo({ isActive, sourceURL, transition }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const playStatus = useXctionPlayer((state) => state.playStatus);
-  const { loadVideoRef } = useXctionPlayer((state) => state.actions);
+  const isPlaying = useXctionPlayer((state) => state.isPlaying);
+  const { loadVideoRef } = useXctionPlayer((state) => state.actions.system);
+
   const currentFrame = useRef(0);
   const prevFrame = useRef(0);
 
@@ -34,7 +40,7 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
   useEffect(() => {
     if (videoRef.current) {
       //autoplay logic
-      if (isActive && playStatus === "playing") {
+      if (isActive && isPlaying) {
         videoRef.current
           .play()
           .then(() => {
@@ -61,6 +67,13 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
       className={`${styles.PlainVideo} ${
         isActive ? styles.active : styles.inactive
       }`}
+      onEnded={() => {
+        if (transition.type === "proceed") {
+          console.log("to" + transition.to);
+          playWithId(transition.to);
+        }
+      }}
+      loop={transition.type === "loop"}
       controls
     >
       <source src={sourceURL} type="video/mp4" />

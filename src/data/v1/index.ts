@@ -8,9 +8,35 @@ const theExhibition: Film = {
       id: "A",
       source: "",
       transition: {
-        type: "normal",
-        to: "B",
+        type: "proceed",
+        to: "A2",
       },
+      prepare: ["A2"],
+    },
+    {
+      id: "A2",
+      source: "",
+      transition: {
+        type: "loop",
+      },
+      interaction: {
+        type: "frame",
+        callback: () => {},
+      },
+      prepare: ["B"],
+    },
+    {
+      id: "B",
+      source: "",
+      transition: {
+        type: "proceed",
+        to: "F1",
+      },
+      interaction: {
+        type: "frame",
+        callback: () => {},
+      },
+      prepare: ["F1"],
     },
   ],
 };
