@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Hahmlet:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+@font-face {
+  font-family: "Garam";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_04@1.0/Garam.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   font-family: "Hahmlet", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 

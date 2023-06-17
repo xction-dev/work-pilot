@@ -29,7 +29,7 @@ type XctionPlayerStore = {
   frameCallbacks: XctionFrameCallback[];
   /*** overlay ***/
   isControllerVisible: boolean;
-  overlays: ReactNode;
+  overlays: ReactNode[];
   /*** dispatch actions ***/
   actions: {
     data: {
@@ -71,6 +71,14 @@ const getNextSourceWithTransition = (
   prepare: XctionPlayerVideoSource["prepare"],
 ): XctionPlayerVideoSource[] => filterNextSourcesByIds(allSources, prepare);
 
+const getFrameCallbacksWithInteraction = (
+  interaction?: XctionPlayerVideoSource["interaction"],
+): XctionFrameCallback[] => {
+  if (!interaction) return [];
+  if (interaction.type === "frame") return [interaction.callback];
+  return [];
+};
+
 /*** hooks ***/
 const initialState: Omit<XctionPlayerStore, "actions"> = {
   isInitiated: false,
@@ -95,6 +103,7 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
     data: {
       initiateXctionPlayer: (allSources, finishCallback) => {
         const indexSource = allSources[0];
+
         set({
           allSources,
           isInitiated: true,
@@ -109,7 +118,9 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
           finishCallback: finishCallback ?? initialState.finishCallback,
           currentFrame: -1,
           totalFrame: indexSource.frames,
-          frameCallbacks: [],
+          frameCallbacks: getFrameCallbacksWithInteraction(
+            indexSource.interaction,
+          ),
         });
       },
     },
@@ -140,13 +151,23 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
             allSources,
             nextVideoSource.prepare,
           );
+
           const primaryOrSecondaryToSet: keyof XctionPlayerStore =
             isPrimaryPlaying ? "primarySources" : "secondarySources";
           nextState[primaryOrSecondaryToSet] = sourcesToPrepare;
 
+          //prepare frame callbacks
+          nextState.frameCallbacks = getFrameCallbacksWithInteraction(
+            nextVideoSource.interaction,
+          );
+
           //reset frame
           nextState.currentFrame = 0;
           nextState.totalFrame = nextVideoSource.frames;
+
+          //reset overlays
+          nextState.overlays = [];
+          nextState.isControllerVisible = false;
 
           //set everything
           set(nextState);
