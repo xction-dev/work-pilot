@@ -70,6 +70,16 @@ const theExhibition: Film = {
         type: "proceed",
         to: "F1",
       },
+      prepare: ["B1"],
+    },
+    {
+      id: "B2",
+      source: getV1("B"),
+      frames: 2783,
+      transition: {
+        type: "proceed",
+        to: "F1",
+      },
       interaction: {
         type: "frame",
         callback: () => {},

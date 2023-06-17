@@ -13,4 +13,11 @@
   font-weight: 400;
   color: #dcdcdc;
   font-size: 24px;
+  transition: 1s ease;
+  &.visible {
+    opacity: 1;
+  }
+  &.invisible {
+    opacity: 0;
+  }
 }

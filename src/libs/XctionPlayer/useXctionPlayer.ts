@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Video } from "../../data/types";
+import { ReactNode } from "react";
 
 /*** external types ***/
 export type XctionPlayerVideoSource = Video;
@@ -26,6 +27,9 @@ type XctionPlayerStore = {
   currentFrame: number;
   totalFrame: number;
   frameCallbacks: XctionFrameCallback[];
+  /*** overlay ***/
+  isControllerVisible: boolean;
+  overlays: ReactNode;
   /*** dispatch actions ***/
   actions: {
     data: {
@@ -49,6 +53,10 @@ type XctionPlayerStore = {
       play: () => void;
       pause: () => void;
       setTime: (frame: number) => void;
+    };
+    overlay: {
+      setControllerVisibility: (isVisible: boolean) => void;
+      setOverlays: (overlays: ReactNode[]) => void;
     };
   };
 };
@@ -77,6 +85,8 @@ const initialState: Omit<XctionPlayerStore, "actions"> = {
   currentFrame: 0,
   totalFrame: 0,
   frameCallbacks: [],
+  overlays: [],
+  isControllerVisible: true,
 };
 
 export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
@@ -173,6 +183,11 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
         }
       },
     },
+    overlay: {
+      setControllerVisibility: (isVisible) =>
+        set({ isControllerVisible: isVisible }),
+      setOverlays: (overlays) => set({ overlays }),
+    },
   },
 }));
 
@@ -188,3 +203,9 @@ export const playWithId = (id: XctionPlayerVideoSource["id"]) => {
     ? proceedToNextSource(nextSource)
     : console.log("error: no source found");
 };
+
+export const setOverlays = (overlays: ReactNode[]) =>
+  useXctionPlayer.getState().actions.overlay.setOverlays(overlays);
+
+export const clearOverlays = () =>
+  useXctionPlayer.getState().actions.overlay.setOverlays([]);

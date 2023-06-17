@@ -11,10 +11,12 @@ type Transition = {
   };
 };
 
+export type FrameCallback = (frame: number) => void;
+
 type Interaction = {
   frame: {
     type: "frame";
-    callback: (frame: number) => void;
+    callback: FrameCallback;
   };
 };
 

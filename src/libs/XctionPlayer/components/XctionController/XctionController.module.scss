@@ -13,6 +13,7 @@
     left: 0;
     bottom: 0;
     padding: 10px 20px;
+    transition: 1s ease;
     .play {
       background: none;
       width: 80px;
@@ -33,6 +34,16 @@
 
     .timeBar {
       width: calc(100% - 200px);
+    }
+  }
+  &.visible {
+    .interface {
+      opacity: 1;
+    }
+  }
+  &.invisible {
+    .interface {
+      opacity: 0;
     }
   }
 }
