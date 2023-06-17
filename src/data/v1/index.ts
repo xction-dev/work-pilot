@@ -1,4 +1,7 @@
 import { Film } from "../types";
+import getSampleVideo, {
+  getV1,
+} from "../../libs/getSampleVideo/getSampleVideo";
 
 const theExhibition: Film = {
   title: { kr: "졸업전시회", eng: "The Exhibition" },
@@ -6,7 +9,7 @@ const theExhibition: Film = {
   videos: [
     {
       id: "A",
-      source: "",
+      source: getV1("A"),
       transition: {
         type: "proceed",
         to: "A2",
@@ -15,7 +18,7 @@ const theExhibition: Film = {
     },
     {
       id: "A2",
-      source: "",
+      source: getV1("A2"),
       transition: {
         type: "loop",
       },
@@ -27,7 +30,7 @@ const theExhibition: Film = {
     },
     {
       id: "B",
-      source: "",
+      source: getV1("B"),
       transition: {
         type: "proceed",
         to: "F1",
