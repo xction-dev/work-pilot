@@ -1,5 +1,5 @@
 import styles from "./PlainVideo.module.scss";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import {
   playWithId,
   useXctionPlayer,
@@ -19,47 +19,38 @@ export default function PlainVideo({ isActive, sourceURL, transition }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isPlaying = useXctionPlayer((state) => state.isPlaying);
   const { loadVideoRef } = useXctionPlayer((state) => state.actions.system);
+  const { update, reset } = useXctionPlayer((state) => state.actions.frame);
+  const { setTime } = useXctionPlayer((state) => state.actions.control);
 
-  const currentFrame = useRef(0);
-  const prevFrame = useRef(0);
-
-  const rVFCTest2 = (a: DOMHighResTimeStamp, b: VideoFrameCallbackMetadata) => {
-    currentFrame.current += 1;
-    console.log(
-      currentFrame.current === prevFrame.current + 1
-        ? `good:${currentFrame.current}`
-        : `something's wrong:${currentFrame.current} ${prevFrame.current}`,
-    );
-    prevFrame.current = currentFrame.current;
-
+  const rVFCTest2 = useCallback(() => {
+    update();
     if (videoRef.current) {
       videoRef.current.requestVideoFrameCallback(rVFCTest2);
     }
-  };
+  }, [update, videoRef.current]);
 
   useEffect(() => {
     if (videoRef.current) {
-      //autoplay logic
-      if (isActive && isPlaying) {
-        videoRef.current
-          .play()
-          .then(() => {
-            //success message
-            console.log("video success");
-          })
-          .catch((e) => {
-            //fail message
-            console.log(e);
-          });
-      }
-      //set ref logic
-      if (isActive) loadVideoRef(videoRef.current);
-      //useFrame logic
       if (isActive) {
+        //set ref logic
+        loadVideoRef(videoRef.current);
+        //useFrame logic
         videoRef.current.requestVideoFrameCallback(rVFCTest2);
       }
     }
   }, [videoRef, isActive]);
+
+  useEffect(() => {
+    //autoplay logic
+    if (isActive && videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.play();
+        console.log("hey!");
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [videoRef, isActive, isPlaying]);
 
   return (
     <video
@@ -69,12 +60,13 @@ export default function PlainVideo({ isActive, sourceURL, transition }: Props) {
       }`}
       onEnded={() => {
         if (transition.type === "proceed") {
-          console.log("to" + transition.to);
           playWithId(transition.to);
         }
+        if (transition.type === "loop") {
+          setTime(0);
+          videoRef.current?.play();
+        }
       }}
-      loop={transition.type === "loop"}
-      controls
     >
       <source src={sourceURL} type="video/mp4" />
       {/* 대체 소스가 있을 경우 추가*/}

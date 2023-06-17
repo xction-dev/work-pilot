@@ -21,6 +21,7 @@ type Interaction = {
 export type Video = {
   id: VideoId;
   source: string;
+  frames: number;
   transition: Transition[keyof Transition];
   interaction?: Interaction[keyof Interaction];
   prepare: VideoId[];

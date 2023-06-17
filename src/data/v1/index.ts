@@ -1,7 +1,39 @@
 import { Film } from "../types";
 import getSampleVideo, {
+  getFrameTestVideo,
+  getFrameTestVideo2,
   getV1,
 } from "../../libs/getSampleVideo/getSampleVideo";
+
+const frameTest: Film = {
+  title: { kr: "졸업전시회", eng: "The Exhibition" },
+  description: "",
+  videos: [
+    {
+      id: "t1",
+      source: getFrameTestVideo(),
+      frames: 2884,
+      transition: {
+        type: "proceed",
+        to: "A2",
+      },
+      prepare: ["t2"],
+    },
+    {
+      id: "t2",
+      source: getFrameTestVideo2(),
+      frames: 2884,
+      transition: {
+        type: "loop",
+      },
+      interaction: {
+        type: "frame",
+        callback: () => {},
+      },
+      prepare: [],
+    },
+  ],
+};
 
 const theExhibition: Film = {
   title: { kr: "졸업전시회", eng: "The Exhibition" },
@@ -10,6 +42,7 @@ const theExhibition: Film = {
     {
       id: "A",
       source: getV1("A"),
+      frames: 2783,
       transition: {
         type: "proceed",
         to: "A2",
@@ -19,6 +52,7 @@ const theExhibition: Film = {
     {
       id: "A2",
       source: getV1("A2"),
+      frames: 484,
       transition: {
         type: "loop",
       },
@@ -31,6 +65,7 @@ const theExhibition: Film = {
     {
       id: "B",
       source: getV1("B"),
+      frames: 2783,
       transition: {
         type: "proceed",
         to: "F1",

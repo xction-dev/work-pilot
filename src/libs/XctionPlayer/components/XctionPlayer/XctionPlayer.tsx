@@ -5,6 +5,7 @@ import {
   XctionPlayerVideoSource,
 } from "../../useXctionPlayer";
 import { useEffect } from "react";
+import XctionController from "../XctionController/XctionController";
 
 type Props = {
   allSources: XctionPlayerVideoSource[] | undefined | null;
@@ -26,7 +27,7 @@ export default function XctionPlayer({ allSources }: Props) {
         <>
           <AlternatePlayer isPrimary={true} />
           <AlternatePlayer isPrimary={false} />
-          {/*<XctionController />*/}
+          <XctionController />
         </>
       ) : (
         <div className={styles.empty} />

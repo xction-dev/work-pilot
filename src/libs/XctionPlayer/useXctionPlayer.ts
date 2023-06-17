@@ -24,6 +24,7 @@ type XctionPlayerStore = {
   finishCallback: () => void;
   /*** frame ***/
   currentFrame: number;
+  totalFrame: number;
   frameCallbacks: XctionFrameCallback[];
   /*** dispatch actions ***/
   actions: {
@@ -40,8 +41,14 @@ type XctionPlayerStore = {
       ) => void;
     };
     frame: {
-      update: (frame: number) => void;
+      update: () => void;
+      reset: () => void;
       loadFrameCallbacks: (callbacks: XctionFrameCallback[]) => void;
+    };
+    control: {
+      play: () => void;
+      pause: () => void;
+      setTime: (frame: number) => void;
     };
   };
 };
@@ -68,6 +75,7 @@ const initialState: Omit<XctionPlayerStore, "actions"> = {
   currentVideoRef: null,
   finishCallback: () => null,
   currentFrame: 0,
+  totalFrame: 0,
   frameCallbacks: [],
 };
 
@@ -87,9 +95,10 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
             allSources,
             indexSource.prepare,
           ),
-          isPlaying: true,
+          isPlaying: false,
           finishCallback: finishCallback ?? initialState.finishCallback,
-          currentFrame: 0,
+          currentFrame: -1,
+          totalFrame: indexSource.frames,
           frameCallbacks: [],
         });
       },
@@ -127,6 +136,7 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
 
           //reset frame
           nextState.currentFrame = 0;
+          nextState.totalFrame = nextVideoSource.frames;
 
           //set everything
           set(nextState);
@@ -141,14 +151,27 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
       loadVideoRef: (videoRef) => set({ currentVideoRef: videoRef }),
     },
     frame: {
-      update: (frame) => {
-        const { currentVideoId, frameCallbacks } = get();
+      update: () => {
+        const { currentVideoId, currentFrame, frameCallbacks } = get();
+        const frame = currentFrame + 1;
         frameCallbacks.forEach((callback) =>
           callback(frame, currentVideoId ?? ""),
         );
         set({ currentFrame: frame });
       },
+      reset: () => set({ currentFrame: 0 }),
       loadFrameCallbacks: (callbacks) => set({ frameCallbacks: callbacks }),
+    },
+    control: {
+      play: () => set({ isPlaying: true }),
+      pause: () => set({ isPlaying: false }),
+      setTime: (frame) => {
+        const { currentVideoRef } = get();
+        if (currentVideoRef) {
+          currentVideoRef.currentTime = frame / 23.976;
+          set({ currentFrame: frame });
+        }
+      },
     },
   },
 }));
