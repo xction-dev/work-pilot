@@ -1,17 +1,11 @@
 import { Film } from "../types";
-import getSampleVideo, {
+import {
   getFrameTestVideo,
   getFrameTestVideo2,
   getV1,
   getV1Audio,
 } from "../../libs/getSampleVideo/getSampleVideo";
-import { setOverlays } from "../../libs/XctionPlayer/useXctionPlayer";
-import {
-  delayedSelectFrameCallback,
-  phoneNumberCallback,
-  selectFrameCallback,
-  testFrameCallback,
-} from "../../libs/XctionPlayer/utility/frameCallbacks";
+
 import PhoneNumberOverlay from "../../components/Play/overlays/PhoneNumberOverlay";
 import SelectOverlay, {
   DelayedSelectOverlay,

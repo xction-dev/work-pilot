@@ -5,6 +5,7 @@ import {
   useXctionPlayer,
 } from "../../../../libs/XctionPlayer/useXctionPlayer";
 import { Video } from "../../../../data/types";
+import { useNavigate } from "react-router-dom";
 
 const normalFrameRate = 24;
 const dropFrameRate = 23.976;
@@ -21,6 +22,7 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
   const { update, reset } = useXctionPlayer((state) => state.actions.frame);
   const { setTime } = useXctionPlayer((state) => state.actions.control);
   const onEnd = useXctionPlayer((state) => state.onEnd);
+  const navigate = useNavigate();
 
   const rVFCTest2 = useCallback(() => {
     update();
@@ -64,6 +66,9 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
         if (onEnd.type === "loop") {
           setTime(0);
           videoRef.current?.play();
+        }
+        if (onEnd.type === "finish") {
+          navigate("/map/theExhibition");
         }
       }}
     >

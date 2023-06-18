@@ -5,6 +5,7 @@ import XctionPlayer from "../../libs/XctionPlayer/components/XctionPlayer/Xction
 import films from "../../data/v1";
 import PlayerHeader from "../../components/Play/PlayerHeader/PlayerHeader";
 import Debugger from "../../libs/XctionPlayer/components/Debugger/Debugger";
+import { loadLog } from "../../libs/useLog/useLog";
 
 export default function Play() {
   const params = useParams();

@@ -9,6 +9,7 @@ import RVFC from "./pages/TestLayout/RVFC/RVFC";
 import DiagramTest from "./pages/MainLayout/DiagramTest";
 import TestLayout from "./pages/TestLayout/TestLayout";
 import Play from "./pages/Play/Play";
+import Map from "./pages/Map/Map";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
   {
     path: "/play/:film_id",
     element: <Play />,
+    errorElement: <div>errorLayout</div>,
+  },
+  {
+    path: "/map/:film_id",
+    element: <Map />,
     errorElement: <div>errorLayout</div>,
   },
   {

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Video } from "../../data/types";
 import { ReactNode } from "react";
+import { addCurrentLog, initiateLog } from "../useLog/useLog";
 
 /*** external types ***/
 export type XctionPlayerVideoSource = Video;
@@ -93,7 +94,8 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
   actions: {
     data: {
       initiateXctionPlayer: (allSources, finishCallback) => {
-        const indexSource = allSources[0];
+        const indexSource = initiateLog(allSources);
+
         set({
           isInitiated: true,
           allSources,
@@ -162,6 +164,8 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
             nextVideoSource.onInteraction.type === "overlay"
               ? nextVideoSource.onInteraction.overlays
               : [];
+          //update log
+          addCurrentLog(nextVideoSource.id);
 
           //set everything
           set(nextState);
