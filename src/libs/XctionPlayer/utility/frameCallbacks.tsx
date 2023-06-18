@@ -72,7 +72,7 @@ export const phoneNumberCallback =
   (frame) => {
     if (frame > startAt) {
       if (!fired) {
-        setOverlays([<PhoneNumberOverlay />]);
+        setOverlays([<PhoneNumberOverlay key="phoneNumberOverlay" />]);
         fired = true;
       }
     } else {
