@@ -12,15 +12,15 @@ const dropFrameRate = 23.976;
 type Props = {
   isActive: boolean;
   sourceURL: string;
-  transition: Video["transition"];
 };
 
-export default function PlainVideo({ isActive, sourceURL, transition }: Props) {
+export default function PlainVideo({ isActive, sourceURL }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const isPlaying = useXctionPlayer((state) => state.isPlaying);
   const { loadVideoRef } = useXctionPlayer((state) => state.actions.system);
   const { update, reset } = useXctionPlayer((state) => state.actions.frame);
   const { setTime } = useXctionPlayer((state) => state.actions.control);
+  const onEnd = useXctionPlayer((state) => state.onEnd);
 
   const rVFCTest2 = useCallback(() => {
     update();
@@ -45,7 +45,6 @@ export default function PlainVideo({ isActive, sourceURL, transition }: Props) {
     if (isActive && videoRef.current) {
       if (isPlaying) {
         videoRef.current.play();
-        console.log("hey!");
       } else {
         videoRef.current.pause();
       }
@@ -59,10 +58,10 @@ export default function PlainVideo({ isActive, sourceURL, transition }: Props) {
         isActive ? styles.active : styles.inactive
       }`}
       onEnded={() => {
-        if (transition.type === "proceed") {
-          playWithId(transition.to);
+        if (onEnd.type === "proceed") {
+          playWithId(onEnd.to);
         }
-        if (transition.type === "loop") {
+        if (onEnd.type === "loop") {
           setTime(0);
           videoRef.current?.play();
         }

@@ -6,7 +6,6 @@ import {
 } from "../../useXctionPlayer";
 import { useEffect } from "react";
 import XctionController from "../XctionController/XctionController";
-import XctionOverlay from "../XctionOverlay/XctionOverlay";
 import AudioPlayer from "../../../useAudio/components/AudioPlayer";
 
 type Props = {
@@ -31,7 +30,6 @@ export default function XctionPlayer({ allSources }: Props) {
           <AlternatePlayer isPrimary={true} />
           <AlternatePlayer isPrimary={false} />
           <XctionController />
-          <XctionOverlay />
         </>
       ) : (
         <div className={styles.empty} />

@@ -14,21 +14,23 @@ type XctionPlayerStore = {
   /*** data ***/
   isInitiated: boolean;
   allSources: XctionPlayerVideoSource[];
+  finishCallback: () => void;
   /*** system ***/
   isPrimaryPlaying: boolean;
   primarySources: XctionPlayerVideoSource[];
   secondarySources: XctionPlayerVideoSource[];
-  /*** player ***/
+  /*** video control ***/
   isPlaying: boolean;
   currentVideoId: XctionPlayerVideoSource["id"] | null;
   currentVideoRef: HTMLVideoElement | null;
-  finishCallback: () => void;
+  onEnd: XctionPlayerVideoSource["onEnd"];
+
   /*** frame ***/
   currentFrame: number;
   totalFrame: number;
   frameCallbacks: XctionFrameCallback[];
   /*** overlay ***/
-  isControllerVisible: boolean;
+  overlayType: "controller" | "interactive";
   overlays: ReactNode[];
   /*** dispatch actions ***/
   actions: {
@@ -44,18 +46,19 @@ type XctionPlayerStore = {
         nextVideoSource: XctionPlayerVideoSource | null,
       ) => void;
     };
+    control: {
+      play: () => void;
+      pause: () => void;
+      setTime: (frame: number) => void;
+      overrideOnEnd: (onEnd: XctionPlayerStore["onEnd"]) => void;
+    };
     frame: {
       update: () => void;
       reset: () => void;
       loadFrameCallbacks: (callbacks: XctionFrameCallback[]) => void;
     };
-    control: {
-      play: () => void;
-      pause: () => void;
-      setTime: (frame: number) => void;
-    };
     overlay: {
-      setControllerVisibility: (isVisible: boolean) => void;
+      setOverlayType: (type: XctionPlayerStore["overlayType"]) => void;
       setOverlays: (overlays: ReactNode[]) => void;
     };
   };
@@ -66,35 +69,23 @@ const filterNextSourcesByIds = (
   ids: string[],
 ) => allSources.filter((source) => ids.includes(source.id));
 
-const getNextSourceWithTransition = (
-  allSources: XctionPlayerVideoSource[],
-  prepare: XctionPlayerVideoSource["prepare"],
-): XctionPlayerVideoSource[] => filterNextSourcesByIds(allSources, prepare);
-
-const getFrameCallbacksWithInteraction = (
-  interaction?: XctionPlayerVideoSource["interaction"],
-): XctionFrameCallback[] => {
-  if (!interaction) return [];
-  if (interaction.type === "frame") return [interaction.callback];
-  return [];
-};
-
 /*** hooks ***/
 const initialState: Omit<XctionPlayerStore, "actions"> = {
   isInitiated: false,
   allSources: [],
+  finishCallback: () => null,
   isPrimaryPlaying: true,
   primarySources: [],
   secondarySources: [],
   isPlaying: false,
   currentVideoId: null,
   currentVideoRef: null,
-  finishCallback: () => null,
+  onEnd: { type: "pause" },
   currentFrame: 0,
   totalFrame: 0,
   frameCallbacks: [],
+  overlayType: "controller",
   overlays: [],
-  isControllerVisible: true,
 };
 
 export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
@@ -103,24 +94,26 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
     data: {
       initiateXctionPlayer: (allSources, finishCallback) => {
         const indexSource = allSources[0];
-
         set({
-          allSources,
           isInitiated: true,
+          allSources,
+          finishCallback: finishCallback ?? initialState.finishCallback,
           isPrimaryPlaying: true,
-          currentVideoId: indexSource.id,
           primarySources: [indexSource],
-          secondarySources: getNextSourceWithTransition(
+          secondarySources: filterNextSourcesByIds(
             allSources,
             indexSource.prepare,
           ),
           isPlaying: false,
-          finishCallback: finishCallback ?? initialState.finishCallback,
+          currentVideoId: indexSource.id,
+          onEnd: indexSource.onEnd,
           currentFrame: -1,
-          totalFrame: indexSource.frames,
-          frameCallbacks: getFrameCallbacksWithInteraction(
-            indexSource.interaction,
-          ),
+          totalFrame: indexSource.frames[0],
+          frameCallbacks: indexSource.frameCallbacks ?? [],
+          overlays:
+            indexSource.onInteraction.type === "overlay"
+              ? indexSource.onInteraction.overlays
+              : [],
         });
       },
     },
@@ -143,31 +136,32 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
           // toggle primary/secondary
           nextState.isPrimaryPlaying = !isPrimaryPlaying;
 
-          // change current video id
+          // change current video id & onEnd
           nextState.currentVideoId = nextVideoSource.id;
+          nextState.onEnd = nextVideoSource.onEnd;
 
-          //load child video if exist
-          const sourcesToPrepare = getNextSourceWithTransition(
+          //load video to prepare if exist
+          const sourcesToPrepare = filterNextSourcesByIds(
             allSources,
             nextVideoSource.prepare,
           );
-
           const primaryOrSecondaryToSet: keyof XctionPlayerStore =
             isPrimaryPlaying ? "primarySources" : "secondarySources";
           nextState[primaryOrSecondaryToSet] = sourcesToPrepare;
 
-          //prepare frame callbacks
-          nextState.frameCallbacks = getFrameCallbacksWithInteraction(
-            nextVideoSource.interaction,
-          );
-
           //reset frame
           nextState.currentFrame = 0;
-          nextState.totalFrame = nextVideoSource.frames;
+          nextState.totalFrame = nextVideoSource.frames[0];
+
+          //prepare frame callbacks
+          nextState.frameCallbacks = nextVideoSource.frameCallbacks ?? [];
 
           //reset overlays
-          nextState.overlays = [];
-          nextState.isControllerVisible = false;
+          nextState.overlayType = "controller";
+          nextState.overlays =
+            nextVideoSource.onInteraction.type === "overlay"
+              ? nextVideoSource.onInteraction.overlays
+              : [];
 
           //set everything
           set(nextState);
@@ -183,8 +177,21 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
     },
     frame: {
       update: () => {
-        const { currentVideoId, currentFrame, frameCallbacks } = get();
+        const {
+          currentVideoId,
+          currentFrame,
+          frameCallbacks,
+          totalFrame,
+          overlayType,
+          actions,
+        } = get();
         const frame = currentFrame + 1;
+        if (overlayType !== "interactive" && frame >= totalFrame) {
+          actions.overlay.setOverlayType("interactive");
+        }
+        if (overlayType === "interactive" && frame < totalFrame) {
+          actions.overlay.setOverlayType("controller");
+        }
         frameCallbacks.forEach((callback) =>
           callback(frame, currentVideoId ?? ""),
         );
@@ -203,10 +210,10 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
           set({ currentFrame: frame });
         }
       },
+      overrideOnEnd: (onEnd) => set({ onEnd }),
     },
     overlay: {
-      setControllerVisibility: (isVisible) =>
-        set({ isControllerVisible: isVisible }),
+      setOverlayType: (type) => set({ overlayType: type }),
       setOverlays: (overlays) => set({ overlays }),
     },
   },

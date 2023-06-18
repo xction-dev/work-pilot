@@ -4,6 +4,16 @@
   justify-content: center;
   margin-top: 20px;
   gap: 10px;
+  .panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background: rgba(black, 0.5);
+    padding: 20px;
+  }
   .sourceButton {
     border: 1px solid white;
     background: none;

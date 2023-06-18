@@ -25,12 +25,11 @@ export default function AlternatePlayer({ isPrimary }: Props) {
         isPrimaryPlaying === isPrimary ? styles.playing : styles.waiting
       }`}
     >
-      {sources.map(({ id, source, transition }) => (
+      {sources.map(({ id, source }) => (
         <PlainVideo
           key={id}
           isActive={id === validCurrentVideoId}
           sourceURL={source}
-          transition={transition}
         />
       ))}
     </div>

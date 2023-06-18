@@ -54,14 +54,10 @@
         height: 1px;
       }
     }
-  }
-  &.visible {
-    .interface {
+    &.visible {
       opacity: 1;
     }
-  }
-  &.invisible {
-    .interface {
+    &.invisible {
       opacity: 0;
     }
   }
