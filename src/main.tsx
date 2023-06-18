@@ -10,20 +10,14 @@ import DiagramTest from "./pages/MainLayout/DiagramTest";
 import TestLayout from "./pages/TestLayout/TestLayout";
 import Play from "./pages/Play/Play";
 import Map from "./pages/Map/Map";
+import Home from "./pages/Home/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Outlet />,
+    element: <Home />,
     errorElement: <div>errorLayout</div>,
-    children: [
-      {
-        path: "home",
-        element: <div>home</div>,
-        index: true,
-      },
-      { path: "diagramTest", element: <DiagramTest /> },
-    ],
+    index: true,
   },
   {
     path: "/play/:film_id",
@@ -35,6 +29,7 @@ const router = createBrowserRouter([
     element: <Map />,
     errorElement: <div>errorLayout</div>,
   },
+  /*
   {
     path: "/test",
     element: <TestLayout />,
@@ -44,8 +39,10 @@ const router = createBrowserRouter([
       { path: "interactive", element: <Interactive /> },
       { path: "frame", element: <Frame /> },
       { path: "rvfc", element: <RVFC /> },
+      { path: "diagramTest", element: <DiagramTest /> },
     ],
   },
+  */
 ]);
 /*
 HTMLVideoElement.prototype._rvfcpolyfillmap = {};

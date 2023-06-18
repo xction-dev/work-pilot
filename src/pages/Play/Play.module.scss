@@ -4,10 +4,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1e1e1e;
-  .playerWrapper {
-    position: relative;
-    width: 90%;
-    aspect-ratio: 160/67;
-  }
+  background: conic-gradient(
+    from 13.11deg at 119.82% 83.16%,
+    #3d3d3d 0deg,
+    #606060 153.75deg,
+    #000000 360deg
+  );
+}
+.playerWrapper {
+  position: relative;
+  width: 90%;
+  aspect-ratio: 160/67;
 }

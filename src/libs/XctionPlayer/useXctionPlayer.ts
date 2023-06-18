@@ -106,7 +106,7 @@ export const useXctionPlayer = create<XctionPlayerStore>()((set, get) => ({
             allSources,
             indexSource.prepare,
           ),
-          isPlaying: false,
+          isPlaying: true,
           currentVideoId: indexSource.id,
           onEnd: indexSource.onEnd,
           currentFrame: -1,

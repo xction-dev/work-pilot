@@ -4,7 +4,6 @@ import {
   playWithId,
   useXctionPlayer,
 } from "../../../../libs/XctionPlayer/useXctionPlayer";
-import { Video } from "../../../../data/types";
 import { useNavigate } from "react-router-dom";
 
 const normalFrameRate = 24;
@@ -20,7 +19,7 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
   const isPlaying = useXctionPlayer((state) => state.isPlaying);
   const { loadVideoRef } = useXctionPlayer((state) => state.actions.system);
   const { update, reset } = useXctionPlayer((state) => state.actions.frame);
-  const { setTime } = useXctionPlayer((state) => state.actions.control);
+  const { pause, setTime } = useXctionPlayer((state) => state.actions.control);
   const onEnd = useXctionPlayer((state) => state.onEnd);
   const navigate = useNavigate();
 
@@ -46,7 +45,7 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
     //autoplay logic
     if (isActive && videoRef.current) {
       if (isPlaying) {
-        videoRef.current.play();
+        videoRef.current.play().catch(() => pause());
       } else {
         videoRef.current.pause();
       }

@@ -48,3 +48,11 @@ export type Film = {
   description: string;
   videos: Video[];
 };
+
+export type VideoNode = {
+  id: VideoId;
+  horizontal: number;
+  vertical: number;
+  description: string;
+  icon: "default" | "accuse" | "box";
+};
