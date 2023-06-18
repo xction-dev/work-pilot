@@ -1,0 +1,18 @@
+.Debugger {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+  .sourceButton {
+    border: 1px solid white;
+    background: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: white;
+    font-size: 24px;
+    &:hover {
+      background: gray;
+    }
+  }
+}
