@@ -3,9 +3,11 @@ import getSampleVideo, {
   getFrameTestVideo,
   getFrameTestVideo2,
   getV1,
+  getV1Audio,
 } from "../../libs/getSampleVideo/getSampleVideo";
 import { setOverlays } from "../../libs/XctionPlayer/useXctionPlayer";
 import {
+  delayedSelectFrameCallback,
   phoneNumberCallback,
   selectFrameCallback,
   testFrameCallback,
@@ -81,12 +83,47 @@ const theExhibition: Film = {
       },
       interaction: {
         type: "frame",
-        callback: selectFrameCallback(
+        callback: delayedSelectFrameCallback(
           [
-            { to: "D", text: "범인이 남긴 흔적 없나?" },
-            { to: "E", text: "사실 어제 본 게 있는데" },
+            {
+              to: "D",
+              text: "범인이 남긴 흔적 없나?",
+              audio: getV1Audio("D"),
+              delay: 3000,
+            },
+            {
+              to: "E",
+              text: "사실 어제 본 게 있는데",
+              audio: "E audio",
+              delay: 3000,
+            },
           ],
           10,
+          750,
+        ),
+      },
+      prepare: ["F1", "D"],
+    },
+    {
+      id: "D",
+      source: getV1("D"),
+      frames: 896,
+      transition: {
+        type: "proceed",
+        to: "F1",
+      },
+      interaction: {
+        type: "frame",
+        callback: selectFrameCallback(
+          [
+            {
+              to: "DI",
+              text: "조각은 안 이상한가?",
+            },
+            { to: "DJ", text: "CCTV는?" },
+            { to: "DJ", text: "카드 출입기록은?" },
+          ],
+          200,
         ),
       },
       prepare: ["F1"],
