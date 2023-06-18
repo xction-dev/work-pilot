@@ -17,6 +17,7 @@ import SelectOverlay, {
   DelayedSelectOverlay,
   EndSelectOverlay,
 } from "../../components/Play/overlays/SelectOverlay";
+import Timer from "../../components/Play/Timer/Timer";
 
 const getVideo = getV1;
 
@@ -42,7 +43,10 @@ const theExhibition: Film = {
       prepare: ["B"],
       onInteraction: {
         type: "overlay",
-        overlays: [<PhoneNumberOverlay key="phoneNumberOverlay" />],
+        overlays: [
+          <PhoneNumberOverlay key="phoneNumberOverlay" />,
+          <Timer key="Timer" frames={[1, 483]} />,
+        ],
       },
       onEnd: {
         type: "loop",
@@ -84,6 +88,7 @@ const theExhibition: Film = {
               },
             ]}
           />,
+          <Timer key="Timer" frames={[414, 340]} />,
         ],
         endEarly: 80,
       },
@@ -111,6 +116,7 @@ const theExhibition: Film = {
               { to: "DK", text: "카드 출입기록은?" },
             ]}
           />,
+          <Timer key="Timer" frames={[400, 496]} />,
         ],
       },
       onEnd: { type: "proceed", to: "F1" },

@@ -1,6 +1,9 @@
 import styles from "./XctionController.module.scss";
 import { useXctionPlayer } from "../../useXctionPlayer";
 import { useCallback, useEffect, useRef, useState } from "react";
+import pauseIcon from "/src/assets/PauseIcon.svg";
+import playIcon from "/src/assets/PlayIcon.svg";
+import fullIcon from "/src/assets/FullScreenIcon.svg";
 
 export default function XctionController() {
   const isPlaying = useXctionPlayer((state) => state.isPlaying);
@@ -45,9 +48,8 @@ export default function XctionController() {
           className={styles.play}
           onClick={() => (!isPlaying ? play() : pause())}
         >
-          {!isPlaying ? "play" : "pause"}
+          {!isPlaying ? <img src={playIcon} /> : <img src={pauseIcon} />}
         </button>
-        <div className={styles.time}>{currentFrame}</div>
         <input
           className={styles.timeBar}
           type="range"
@@ -56,6 +58,9 @@ export default function XctionController() {
           value={currentFrame}
           onChange={(e) => setTime(parseInt(e.target.value))}
         />
+        <button className={styles.full}>
+          <img src={fullIcon} />
+        </button>
       </div>
       {overlayType === "interactive" && (
         <div className={styles.overlayContainer}>

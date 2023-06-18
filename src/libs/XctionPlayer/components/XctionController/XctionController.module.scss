@@ -18,27 +18,23 @@
       background: none;
       width: 80px;
       color: white;
-      border: 1px solid white;
       font: inherit;
-      border-radius: 5px;
       cursor: pointer;
-      background: rgba(0, 0, 0, 0.3);
+      border: none;
+      &:hover {
+        opacity: 0.5;
+      }
     }
-    .time {
-      width: 80px;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .full {
+      background: none;
+      border: none;
     }
-
     .timeBar {
       -webkit-appearance: none;
       appearance: none;
       background: transparent;
       cursor: pointer;
-
-      width: calc(100% - 200px);
+      width: 85%;
 
       &::-webkit-slider-thumb {
         -webkit-appearance: none; /* Override default look */
