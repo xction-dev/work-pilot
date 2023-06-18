@@ -15,6 +15,9 @@ type OnEnd = {
     type: "pause";
     onPause?: () => void;
   };
+  finish: {
+    type: "finish";
+  };
 };
 
 type OnInteraction = {

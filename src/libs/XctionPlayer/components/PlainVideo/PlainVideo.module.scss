@@ -4,4 +4,11 @@
   height: auto;
   top: 0;
   left: 0;
+
+  &.active {
+    opacity: 1;
+  }
+  &.inactive {
+    opacity: 0;
+  }
 }

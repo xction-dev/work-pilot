@@ -25,6 +25,15 @@
     color: white;
     cursor: pointer;
     animation: 1s ease reveal;
+    transition: 0.5s ease;
+
+    &.endSelected {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    &.notEndSelected {
+      opacity: 0.7;
+    }
   }
   &.invisible {
     opacity: 0;

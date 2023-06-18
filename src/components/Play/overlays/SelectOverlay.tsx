@@ -6,6 +6,7 @@ import {
 import {
   playWithId,
   setOverlays,
+  useXctionPlayer,
 } from "../../../libs/XctionPlayer/useXctionPlayer";
 import { useState } from "react";
 import { clearAudio, playAudio } from "../../../libs/useAudio/useAudio";
@@ -52,6 +53,32 @@ export function DelayedSelectOverlay({
               }, select.delay);
               setIsSelected(true);
             }
+          }}
+        >
+          {select.text}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export function EndSelectOverlay({ selects }: { selects: Select[] }) {
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const setOnEnd = useXctionPlayer(
+    (state) => state.actions.control.overrideOnEnd,
+  );
+
+  return (
+    <div className={styles.SelectOverlay}>
+      {selects.map((select, i) => (
+        <button
+          key={i}
+          className={`${styles.select} ${
+            selectedIndex === i ? styles.endSelected : styles.notEndSelected
+          }`}
+          onClick={() => {
+            setOnEnd({ type: "proceed", to: select.to });
+            setSelectedIndex(i);
           }}
         >
           {select.text}

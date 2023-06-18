@@ -15,6 +15,7 @@ import {
 import PhoneNumberOverlay from "../../components/Play/overlays/PhoneNumberOverlay";
 import SelectOverlay, {
   DelayedSelectOverlay,
+  EndSelectOverlay,
 } from "../../components/Play/overlays/SelectOverlay";
 
 const getVideo = getV1;
@@ -117,7 +118,7 @@ const theExhibition: Film = {
     {
       id: "DJ",
       source: getVideo("DJ"),
-      frames: [200, 432],
+      frames: [320, 312],
       prepare: ["DI", "DK", "F1"],
       onInteraction: {
         type: "overlay",
@@ -142,7 +143,7 @@ const theExhibition: Film = {
     {
       id: "DK",
       source: getVideo("DK"),
-      frames: [200, 520],
+      frames: [450, 270],
       prepare: ["DI", "DJ", "F1"],
       onInteraction: {
         type: "overlay",
@@ -167,7 +168,7 @@ const theExhibition: Film = {
     {
       id: "DI",
       source: getVideo("DI"),
-      frames: [600, 390],
+      frames: [706, 284],
       prepare: ["DIX", "DIY", "F1"],
       onInteraction: {
         type: "overlay",
@@ -175,8 +176,8 @@ const theExhibition: Film = {
           <SelectOverlay
             key="SelectOverlay"
             selects={[
-              { to: "DIX", text: "" },
-              { to: "DIY", text: "" },
+              { to: "DIX", text: "얼굴 부분이 깬 티가 나" },
+              { to: "DIY", text: "페인트, 핏자국 같지 않나?" },
             ]}
           />,
         ],
@@ -184,6 +185,77 @@ const theExhibition: Film = {
       onEnd: {
         type: "proceed",
         to: "F1",
+      },
+    },
+    {
+      id: "DIX",
+      source: getVideo("DIX"),
+      frames: [2874, 324],
+      prepare: ["DSuccess", "F2"],
+      onInteraction: {
+        type: "overlay",
+        overlays: [
+          <EndSelectOverlay
+            key="SelectOverlay"
+            selects={[
+              { to: "DSuccess", text: "왜 하필 얼굴을 깼어?" },
+              { to: "F2", text: "괜히 의심했어, 미안." },
+            ]}
+          />,
+        ],
+      },
+      onEnd: {
+        type: "proceed",
+        to: "F2",
+      },
+    },
+    {
+      id: "DIY",
+      source: getVideo("DIY"),
+      frames: [709, 0],
+      prepare: ["F1"],
+      onInteraction: {
+        type: "nothing",
+      },
+      onEnd: {
+        type: "proceed",
+        to: "F1",
+      },
+    },
+    {
+      id: "DSuccess",
+      source: getVideo("DSuccess"),
+      frames: [5235, 0],
+      prepare: [],
+      onInteraction: {
+        type: "nothing",
+      },
+      onEnd: {
+        type: "finish",
+      },
+    },
+    {
+      id: "F1",
+      source: getVideo("F1"),
+      frames: [2102, 0],
+      prepare: [],
+      onInteraction: {
+        type: "nothing",
+      },
+      onEnd: {
+        type: "finish",
+      },
+    },
+    {
+      id: "F2",
+      source: getVideo("F2"),
+      frames: [2405, 0],
+      prepare: [],
+      onInteraction: {
+        type: "nothing",
+      },
+      onEnd: {
+        type: "finish",
       },
     },
   ],
