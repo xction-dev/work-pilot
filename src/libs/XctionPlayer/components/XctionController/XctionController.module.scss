@@ -28,6 +28,10 @@
     .full {
       background: none;
       border: none;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.5;
+      }
     }
     .timeBar {
       -webkit-appearance: none;

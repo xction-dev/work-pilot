@@ -1,11 +1,15 @@
 import styles from "./XctionController.module.scss";
 import { useXctionPlayer } from "../../useXctionPlayer";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import pauseIcon from "/src/assets/PauseIcon.svg";
 import playIcon from "/src/assets/PlayIcon.svg";
 import fullIcon from "/src/assets/FullScreenIcon.svg";
 
-export default function XctionController() {
+type Props = {
+  playerRef: React.RefObject<HTMLDivElement>;
+};
+
+export default function XctionController({ playerRef }: Props) {
   const isPlaying = useXctionPlayer((state) => state.isPlaying);
   const currentFrame = useXctionPlayer((state) => state.currentFrame);
   const totalFrame = useXctionPlayer((state) => state.totalFrame);
@@ -16,6 +20,7 @@ export default function XctionController() {
   );
   const timer = useRef(-1);
   const [isControllerVisible, setIsControllerVisible] = useState(false);
+  const isFullscreen = useRef(false);
 
   const refreshController = useCallback(() => {
     if (!isControllerVisible) setIsControllerVisible(true);
@@ -58,7 +63,20 @@ export default function XctionController() {
           value={currentFrame}
           onChange={(e) => setTime(parseInt(e.target.value))}
         />
-        <button className={styles.full}>
+        <button
+          className={styles.full}
+          onClick={() => {
+            if (playerRef.current) {
+              !isFullscreen.current
+                ? playerRef.current.requestFullscreen().then(() => {
+                    isFullscreen.current = true;
+                  })
+                : document.exitFullscreen().then(() => {
+                    isFullscreen.current = false;
+                  });
+            }
+          }}
+        >
           <img src={fullIcon} />
         </button>
       </div>

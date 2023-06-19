@@ -4,15 +4,16 @@ import {
   useXctionPlayer,
   XctionPlayerVideoSource,
 } from "../../useXctionPlayer";
-import { useEffect } from "react";
+import { MutableRefObject, useEffect } from "react";
 import XctionController from "../XctionController/XctionController";
 import AudioPlayer from "../../../useAudio/components/AudioPlayer";
 
 type Props = {
   allSources: XctionPlayerVideoSource[] | undefined | null;
+  playerRef: React.RefObject<HTMLDivElement>;
 };
 
-export default function XctionPlayer({ allSources }: Props) {
+export default function XctionPlayer({ allSources, playerRef }: Props) {
   const isInitiated = useXctionPlayer((state) => state.isInitiated);
   const { initiateXctionPlayer } = useXctionPlayer(
     (state) => state.actions.data,
@@ -29,7 +30,7 @@ export default function XctionPlayer({ allSources }: Props) {
           <AudioPlayer />
           <AlternatePlayer isPrimary={true} />
           <AlternatePlayer isPrimary={false} />
-          <XctionController />
+          <XctionController playerRef={playerRef} />
         </>
       ) : (
         <div className={styles.empty} />
