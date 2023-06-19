@@ -30,13 +30,14 @@ export default function Header({ isHome }: Props) {
         >
           Contents
         </button>
+        {/*
         <button
           className={`${styles.button} ${!isHome ? styles.selected : ""}`}
           onClick={() => navigate("/about")}
         >
           About Us
         </button>
-        {/*
+
         <button className={styles.button} onClick={() => navigate("/")}>
           My Page
         </button>

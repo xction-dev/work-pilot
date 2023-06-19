@@ -52,14 +52,13 @@ const theExhibition: Film = {
       prepare: ["B2"],
       onInteraction: { type: "nothing" },
       onEnd: {
-        type: "proceed",
-        to: "B2",
+        type: "pause",
       },
     },
     {
       id: "B2",
       source: getVideo("B2"),
-      frames: [414, 410],
+      frames: [414 + 100, 410 - 100],
       prepare: ["D", "F1"],
       onInteraction: {
         type: "overlay",
@@ -81,7 +80,7 @@ const theExhibition: Film = {
               },
             ]}
           />,
-          <Timer key="Timer" frames={[414, 340]} />,
+          <Timer key="Timer" frames={[514, 240]} />,
         ],
         endEarly: 80,
       },
@@ -231,7 +230,8 @@ const theExhibition: Film = {
       frames: [5235, 0],
       prepare: [],
       onInteraction: {
-        type: "nothing",
+        type: "overlay",
+        overlays: [<CreditOverlay key="CreditOverlay" />],
       },
       onEnd: {
         type: "finish",
@@ -256,7 +256,8 @@ const theExhibition: Film = {
       frames: [2405, 0],
       prepare: [],
       onInteraction: {
-        type: "nothing",
+        type: "overlay",
+        overlays: [<CreditOverlay key="CreditOverlay" />],
       },
       onEnd: {
         type: "finish",

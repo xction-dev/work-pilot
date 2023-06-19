@@ -50,6 +50,11 @@
         border: 1px solid #14ae5c;
         background: white;
       }
+      &.hidden {
+        background: #333333;
+        border: 1px solid #c7c7c7;
+        cursor: auto;
+      }
     }
     .edge {
     }

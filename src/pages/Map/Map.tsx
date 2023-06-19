@@ -7,6 +7,7 @@ import {
   loadLog,
   resetLog,
   updateHistory,
+  useLog,
 } from "../../libs/useLog/useLog";
 import theExhibitionNode from "../../data/node/node";
 import { VideoNode } from "../../data/types";
@@ -102,6 +103,7 @@ export default function Map() {
     [params],
   );
   const [isOpen, setIsOpen] = useState<null | VideoNode>(null);
+  const history = useLog((state) => state.history);
   const navigate = useNavigate();
   useEffect(() => {
     loadLog();
@@ -140,25 +142,36 @@ export default function Map() {
         <Edge from={theExhibitionNode[10]} to={theExhibitionNode[11]} />
         <Edge from={theExhibitionNode[10]} to={theExhibitionNode[12]} />
 
-        {theExhibitionNode.map((node) => (
-          <div
-            className={`${styles.node} ${
-              isOpen?.id === node.id ? styles.selected : ""
-            }`}
-            key={node.id}
-            style={{
-              left: `${getH(node.horizontal)}%`,
-              top: `${getV(-node.vertical + 1.75)}%`,
-            }}
-            onClick={() => {
-              if (isOpen?.id === node.id) {
-                setIsOpen(null);
-              } else {
-                setIsOpen(node);
-              }
-            }}
-          />
-        ))}
+        {theExhibitionNode.map((node) =>
+          history.includes(node.id) || node.id === "A" ? (
+            <div
+              className={`${styles.node} ${
+                isOpen?.id === node.id ? styles.selected : ""
+              }`}
+              key={node.id}
+              style={{
+                left: `${getH(node.horizontal)}%`,
+                top: `${getV(-node.vertical + 1.75)}%`,
+              }}
+              onClick={() => {
+                if (isOpen?.id === node.id) {
+                  setIsOpen(null);
+                } else {
+                  setIsOpen(node);
+                }
+              }}
+            />
+          ) : (
+            <div
+              className={`${styles.node} ${styles.hidden}`}
+              key={node.id}
+              style={{
+                left: `${getH(node.horizontal)}%`,
+                top: `${getV(-node.vertical + 1.75)}%`,
+              }}
+            />
+          ),
+        )}
       </div>
       <div className={styles.help}>
         원하는 노드를 클릭해 해당 지점에서부터 영상을 다시 감상하세요!
