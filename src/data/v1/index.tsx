@@ -4,6 +4,7 @@ import {
   getFrameTestVideo2,
   getV1,
   getV1Audio,
+  getV2,
 } from "../../libs/getSampleVideo/getSampleVideo";
 
 import PhoneNumberOverlay from "../../components/Play/overlays/PhoneNumberOverlay";
@@ -12,8 +13,9 @@ import SelectOverlay, {
   EndSelectOverlay,
 } from "../../components/Play/overlays/SelectOverlay";
 import Timer from "../../components/Play/Timer/Timer";
+import CreditOverlay from "../../components/Play/overlays/CreditOverlay";
 
-const getVideo = getV1;
+const getVideo = getV2;
 
 const theExhibition: Film = {
   title: { kr: "졸업전시회", eng: "The Exhibition" },
@@ -37,10 +39,7 @@ const theExhibition: Film = {
       prepare: ["B"],
       onInteraction: {
         type: "overlay",
-        overlays: [
-          <PhoneNumberOverlay key="phoneNumberOverlay" />,
-          <Timer key="Timer" frames={[1, 483]} />,
-        ],
+        overlays: [<PhoneNumberOverlay key="phoneNumberOverlay" />],
       },
       onEnd: {
         type: "loop",
@@ -75,8 +74,8 @@ const theExhibition: Film = {
                 delay: 3000,
               },
               {
-                to: "E",
-                text: "사실 어제 본 게 있는데",
+                to: "D",
+                text: "이간질하려는 건 아닌데...",
                 audio: "E audio",
                 delay: 3000,
               },
@@ -133,6 +132,7 @@ const theExhibition: Film = {
               { to: "DK", text: "카드 출입기록은?" },
             ]}
           />,
+          <Timer key="Timer" frames={[320, 312]} />,
         ],
       },
       onEnd: {
@@ -158,6 +158,7 @@ const theExhibition: Film = {
               { to: "DJ", text: "카드 출입기록은?" },
             ]}
           />,
+          <Timer key="Timer" frames={[450, 270]} />,
         ],
       },
       onEnd: {
@@ -180,6 +181,7 @@ const theExhibition: Film = {
               { to: "DIY", text: "페인트, 핏자국 같지 않나?" },
             ]}
           />,
+          <Timer key="Timer" frames={[706, 284]} />,
         ],
       },
       onEnd: {
@@ -202,6 +204,7 @@ const theExhibition: Film = {
               { to: "F2", text: "괜히 의심했어, 미안." },
             ]}
           />,
+          <Timer key="Timer" frames={[2874, 324]} />,
         ],
       },
       onEnd: {
@@ -240,7 +243,8 @@ const theExhibition: Film = {
       frames: [2102, 0],
       prepare: [],
       onInteraction: {
-        type: "nothing",
+        type: "overlay",
+        overlays: [<CreditOverlay key="CreditOverlay" />],
       },
       onEnd: {
         type: "finish",

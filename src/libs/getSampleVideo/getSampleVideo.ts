@@ -7,6 +7,8 @@ const getSampleVideo = (id: AvailableVideoId): string =>
   `${baseURL}hd/${samplePrefix}${id.toUpperCase()}_hd.mp4`;
 
 export const getV1 = (id: string): string => `${baseURL}v1/v1_${id}.mp4`;
+export const getV2 = (id: string): string => `${baseURL}v2/v2_${id}.mp4`;
+
 export const getV1Audio = (id: string): string =>
   `${baseURL}v1/v1_${id}_audio.wav`;
 
