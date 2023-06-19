@@ -81,7 +81,7 @@ const initialState: Omit<XctionPlayerStore, "actions"> = {
   isPlaying: false,
   currentVideoId: null,
   currentVideoRef: null,
-  onEnd: { type: "pause" },
+  onEnd: { type: "pause", at: 0 },
   currentFrame: 0,
   totalFrame: 0,
   frameCallbacks: [],
