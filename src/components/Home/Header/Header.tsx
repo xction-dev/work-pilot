@@ -11,8 +11,6 @@ export default function Header({ isHome }: Props) {
   const navigate = useNavigate();
   const [isAlert, setIsAlert] = useState(false);
 
-  console.dir(navigate.name);
-
   return (
     <header className={styles.Header}>
       <button
@@ -52,7 +50,14 @@ export default function Header({ isHome }: Props) {
               navigate("/");
             }}
           >
-            초기 화면으로 이동
+            다음 사람을 위해 초기화하기
+          </button>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            초기화하지 않고 이동
           </button>
         </div>
       )}

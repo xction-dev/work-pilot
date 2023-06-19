@@ -68,5 +68,9 @@ export const loadLog = () => {
   });
 };
 
-export const resetLog = () =>
+export const resetLog = () => {
+  window.localStorage.setItem("current", JSON.stringify([]));
+  window.localStorage.setItem("history", JSON.stringify([]));
+
   useLog.setState({ current: [], history: [], phoneNo: null });
+};
