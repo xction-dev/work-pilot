@@ -2,12 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import PlayTest from "./pages/TestLayout/Play/Play";
-import Interactive from "./pages/TestLayout/Interactive/Interactive";
-import Frame from "./pages/TestLayout/Frame/Frame";
-import RVFC from "./pages/TestLayout/RVFC/RVFC";
-import DiagramTest from "./pages/MainLayout/DiagramTest";
-import TestLayout from "./pages/TestLayout/TestLayout";
+
 import Play from "./pages/Play/Play";
 import Map from "./pages/Map/Map";
 import Home from "./pages/Home/Home";
@@ -29,20 +24,6 @@ const router = createBrowserRouter([
     element: <Map />,
     errorElement: <div>errorLayout</div>,
   },
-  /*
-  {
-    path: "/test",
-    element: <TestLayout />,
-    errorElement: <div>errorLayout</div>,
-    children: [
-      { path: "normal", element: <PlayTest /> },
-      { path: "interactive", element: <Interactive /> },
-      { path: "frame", element: <Frame /> },
-      { path: "rvfc", element: <RVFC /> },
-      { path: "diagramTest", element: <DiagramTest /> },
-    ],
-  },
-  */
 ]);
 /*
 HTMLVideoElement.prototype._rvfcpolyfillmap = {};

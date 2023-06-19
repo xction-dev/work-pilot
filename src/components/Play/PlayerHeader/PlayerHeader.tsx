@@ -6,16 +6,10 @@ type Props = {
 };
 
 export default function PlayerHeader({ title }: Props) {
-  const isControllerVisible = useXctionPlayer(
-    (state) => state.isControllerVisible,
-  );
+  const overlayType = useXctionPlayer((state) => state.overlayType);
 
   return (
-    <header
-      className={`${styles.PlayerHeader} ${
-        isControllerVisible ? styles.visible : styles.invisible
-      }`}
-    >
+    <header className={`${styles.PlayerHeader} ${styles.invisible}`}>
       {title}
     </header>
   );
