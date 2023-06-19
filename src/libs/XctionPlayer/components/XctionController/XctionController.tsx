@@ -51,7 +51,9 @@ export default function XctionController({ playerRef }: Props) {
       >
         <button
           className={styles.play}
-          onClick={() => (!isPlaying ? play() : pause())}
+          onClick={() => {
+            if (overlayType === "controller") !isPlaying ? play() : pause();
+          }}
         >
           {!isPlaying ? <img src={playIcon} /> : <img src={pauseIcon} />}
         </button>
@@ -61,7 +63,9 @@ export default function XctionController({ playerRef }: Props) {
           min={0}
           max={totalFrame}
           value={currentFrame}
-          onChange={(e) => setTime(parseInt(e.target.value))}
+          onChange={(e) => {
+            if (overlayType === "controller") setTime(parseInt(e.target.value));
+          }}
         />
         <button
           className={styles.full}
