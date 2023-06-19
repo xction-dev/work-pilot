@@ -18,7 +18,7 @@ export default function Play() {
       <div className={styles.playerWrapper}>
         <PlayerHeader title={filmData ? filmData.title.kr : "no_title"} />
         <XctionPlayer allSources={filmData?.videos} />
-        <Debugger />
+        {/* <Debugger /> */}
       </div>
     </main>
   );
