@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px;
+  padding: 10px 30px;
   top: 0;
   .logo {
     font: inherit;
@@ -15,6 +15,10 @@
     font-size: 48px;
     font-weight: 700;
     cursor: pointer;
+    transition: 0.3s ease;
+    &:hover {
+      color: #b6b6b6;
+    }
   }
   .buttons {
     display: flex;
@@ -29,6 +33,39 @@
       color: white;
       font-size: 24px;
       cursor: pointer;
+      &.selected {
+        font-weight: 700;
+        text-decoration: underline;
+      }
+    }
+  }
+  .alert {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background: rgba(black, 0.75);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    font-size: 36px;
+    color: white;
+    > button {
+      background: none;
+      border: 1px solid white;
+      padding: 16px 40px;
+      border-radius: 40px;
+      font: inherit;
+      color: white;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.5;
+        text-decoration: underline;
+      }
     }
   }
 }

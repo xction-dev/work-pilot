@@ -18,14 +18,25 @@
     .thumbnailWrapper {
       width: 40%;
       object-fit: cover;
+      cursor: pointer;
+      .thumbnail {
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: 0.7s ease;
+        &:hover {
+          transform: scale(1.1);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+      }
     }
     .description {
       width: 40%;
       color: white;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
       font-size: 20px;
+
       .play {
         display: flex;
         flex-direction: row;

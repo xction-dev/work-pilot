@@ -7,10 +7,14 @@ export default function Home() {
   const navigate = useNavigate();
   return (
     <main className={styles.Home}>
-      <Header />
+      <Header isHome={true} />
       <div className={styles.content}>
         <div className={styles.thumbnailWrapper}>
-          <img src={thumbnail} />
+          <img
+            className={styles.thumbnail}
+            src={thumbnail}
+            onClick={() => navigate("/play/theExhibition")}
+          />
         </div>
         <div className={styles.description}>
           <h1>졸업 전시회</h1>
