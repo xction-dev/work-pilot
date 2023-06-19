@@ -51,7 +51,6 @@ export default function Header({ isHome }: Props) {
               navigate("/");
             }}
           >
-            {" "}
             초기 화면으로 이동
           </button>
         </div>

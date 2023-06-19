@@ -53,6 +53,7 @@ export type VideoNode = {
   id: VideoId;
   horizontal: number;
   vertical: number;
+  title: string;
   description: string;
   icon: "default" | "accuse" | "box";
 };

@@ -17,9 +17,13 @@
     top: 20px;
     left: 20px;
     color: white;
+    > h1 {
+      font-size: 48px;
+    }
     .toHome {
       text-decoration: underline;
       cursor: pointer;
+      font-size: 24px;
     }
   }
 
@@ -54,16 +58,39 @@
     position: relative;
     width: 70%;
     height: 30%;
-    background: blue;
     display: flex;
     justify-content: space-evenly;
     .preview {
+      position: relative;
       width: 40%;
-      background: red;
+      display: flex;
+      align-items: center;
+      > video {
+        width: 100%;
+        object-fit: contain;
+      }
     }
     .contents {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
       width: 40%;
-      background: green;
+      color: white;
+      > button {
+        background: #14ae5c;
+        border: none;
+        padding: 15px 40px;
+        font: inherit;
+        color: white;
+        border-radius: 30px;
+        cursor: pointer;
+      }
     }
+  }
+  .help {
+    color: white;
+    font-size: 24px;
+    font-weight: 100;
   }
 }

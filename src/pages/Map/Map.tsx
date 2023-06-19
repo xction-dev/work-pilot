@@ -2,9 +2,15 @@ import styles from "./Map.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import films from "../../data/v1";
-import { loadLog, updateHistory } from "../../libs/useLog/useLog";
+import {
+  addCurrentLog,
+  loadLog,
+  resetLog,
+  updateHistory,
+} from "../../libs/useLog/useLog";
 import theExhibitionNode from "../../data/node/node";
 import { VideoNode } from "../../data/types";
+import { getV2 } from "../../libs/getSampleVideo/getSampleVideo";
 
 const getH = (num: number) => (num / 3.5) * 100;
 const getV = (num: number) => (num / 4.25) * 100;
@@ -106,8 +112,14 @@ export default function Map() {
     <div className={styles.Map}>
       <div className={styles.header}>
         <h1> 졸업 전시회</h1>
-        <div className={styles.toHome} onClick={() => navigate("/")}>
-          홈으로
+        <div
+          className={styles.toHome}
+          onClick={() => {
+            resetLog();
+            navigate("/");
+          }}
+        >
+          다음 사람을 위해 초기화
         </div>
       </div>
       <div
@@ -148,13 +160,25 @@ export default function Map() {
           />
         ))}
       </div>
+      <div className={styles.help}>
+        원하는 노드를 클릭해 해당 지점에서부터 영상을 다시 감상하세요!
+      </div>
       {isOpen && (
         <div className={styles.informationWrapper}>
-          <div className={styles.preview}></div>
+          <div className={styles.preview}>
+            <video src={getV2(isOpen.id)} autoPlay={true} muted={true} />
+          </div>
           <div className={styles.contents}>
-            <h1>제목</h1>
-            <div>설명</div>
-            <button>보러가기</button>
+            <h1>{isOpen.title}</h1>
+            <div>{isOpen.description}</div>
+            <button
+              onClick={() => {
+                addCurrentLog(isOpen.id);
+                navigate(`/play/theExhibition`);
+              }}
+            >
+              여기서부터 보기
+            </button>
           </div>
         </div>
       )}
