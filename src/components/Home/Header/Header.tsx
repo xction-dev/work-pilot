@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 export default function Header() {
   const navigate = useNavigate();
 
+  console.dir(navigate.name);
+
   return (
     <header className={styles.Header}>
       <button className={styles.logo}>Xction!</button>
@@ -13,9 +15,11 @@ export default function Header() {
         <button className={styles.button} onClick={() => navigate("/about")}>
           About Us
         </button>
+        {/*
         <button className={styles.button} onClick={() => navigate("/")}>
           My Page
         </button>
+        */}
       </div>
     </header>
   );

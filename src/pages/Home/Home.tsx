@@ -19,7 +19,6 @@ export default function Home() {
           </div>
           <div>10분+</div>
           <div>스릴러</div>
-          <div>모바일 권장</div>
           <button
             className={styles.play}
             onClick={() => navigate("/play/theExhibition")}

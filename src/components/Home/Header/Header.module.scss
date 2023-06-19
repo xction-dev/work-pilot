@@ -11,12 +11,16 @@
     border: none;
     background: none;
     color: white;
+    font-family: "Chakra Petch", sans-serif;
     font-size: 48px;
+    font-weight: 700;
     cursor: pointer;
   }
   .buttons {
     display: flex;
     justify-content: space-between;
+    font-family: "Chakra Petch", sans-serif;
+
     gap: 30px;
     .button {
       font: inherit;
