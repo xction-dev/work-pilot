@@ -13,6 +13,7 @@ type OnEnd = {
   };
   pause: {
     type: "pause";
+    at: number;
     onPause?: () => void;
   };
   finish: {

@@ -14,6 +14,7 @@ import SelectOverlay, {
 } from "../../components/Play/overlays/SelectOverlay";
 import Timer from "../../components/Play/Timer/Timer";
 import CreditOverlay from "../../components/Play/overlays/CreditOverlay";
+import PhoneOverlay from "../../components/Play/overlays/PhoneOverlay";
 
 const getVideo = getV2;
 
@@ -48,11 +49,15 @@ const theExhibition: Film = {
     {
       id: "B",
       source: getVideo("B"),
-      frames: [4446, 0],
+      frames: [4436, 10],
       prepare: ["B2"],
-      onInteraction: { type: "nothing" },
+      onInteraction: {
+        type: "overlay",
+        overlays: [<PhoneOverlay key="phoneOverlay" />],
+      },
       onEnd: {
         type: "pause",
+        at: 4446,
       },
     },
     {

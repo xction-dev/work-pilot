@@ -66,6 +66,10 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
           setTime(0);
           videoRef.current?.play();
         }
+        if (onEnd.type === "pause") {
+          setTime(onEnd.at);
+          videoRef.current?.pause();
+        }
         if (onEnd.type === "finish") {
           navigate("/map/theExhibition");
         }
