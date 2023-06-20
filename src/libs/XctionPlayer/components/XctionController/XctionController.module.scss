@@ -62,3 +62,9 @@
     }
   }
 }
+
+@media (max-width: 1032px) {
+  .interface {
+    display: none !important;
+  }
+}

@@ -74,6 +74,8 @@ export default function PlainVideo({ isActive, sourceURL }: Props) {
           navigate("/map/theExhibition");
         }
       }}
+      controls={false}
+      playsInline={true}
     >
       <source src={sourceURL} type="video/mp4" />
       {/* 대체 소스가 있을 경우 추가*/}
